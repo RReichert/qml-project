@@ -2,7 +2,7 @@
 find_package(Doxygen)
 
 # run doxygen if available
-if(${DOXYGEN_FOUND})
+if(DOXYGEN_FOUND)
 
     # doxygen settings
     set(USE_MATHJAX "YES")

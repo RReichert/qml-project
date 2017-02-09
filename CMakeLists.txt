@@ -12,6 +12,6 @@ set(EXECUTABLE_OUTPUT_PATH bin)
 set(LIBRARY_OUTPUT_PATH lib)
 
 # process sub-projects
-add_subdirectory(src)
-#add_subdirectory(test)
 add_subdirectory(doc)
+add_subdirectory(src)
+add_subdirectory(test)
