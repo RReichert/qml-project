@@ -8,9 +8,9 @@ find_package(GTest)
 if(GTest_FOUND)
 
     # unit test compilation
-    add_executable(run_tests ${TEST_FILE})
+    add_executable(run_tests ${TEST_FILE} basic_test.cpp)
     target_link_libraries(run_tests ${GTEST_BOTH_LIBRARIES})
-    target_include_directories(run_test ${GTEST_INCLUDE_DIRS})
+    target_include_directories(run_tests PUBLIC ${GTEST_INCLUDE_DIRS})
 
     # unit test installation
     install(

@@ -22,3 +22,11 @@ find_package(Qt5 CONFIG REQUIRED COMPONENTS Core Widgets)
 # project executable
 add_executable(trial ${SOURCE_FILES} ${UI_FILES} ${RESOURCE_FILES})
 qt5_use_modules(trial Core Widgets)
+
+# project installation
+install(
+    TARGETS trial
+    RUNTIME DESTINATION bin
+    LIBRARY DESTINATION lib
+    ARCHIVE DESTINATION lib/static
+)
