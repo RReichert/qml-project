@@ -33,7 +33,7 @@ void MainWindow::update_equation()
 	auto complex_to_qstring = [](const std::complex<double>& value) -> QString
 	{
 			const char* REAL_FORMAT    = "%1%";
-			const char* COMPLEX_FORMAT = "%1% + %2%i";
+			const char* COMPLEX_FORMAT = "%1% %2% %3%i";
 
 			if(value.imag() == 0.0)
 			{
@@ -41,7 +41,7 @@ void MainWindow::update_equation()
 			}
 			else
 			{
-				return QString::fromStdString((boost::format(COMPLEX_FORMAT) % value.real() % value.imag()).str());
+				return QString::fromStdString((boost::format(COMPLEX_FORMAT) % value.real() % (value.imag() > 0 ? "+" : "-") % std::abs(value.imag())).str());
 			}
 	};
 

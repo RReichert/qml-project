@@ -21,14 +21,14 @@ find_package(Qt5 CONFIG REQUIRED COMPONENTS Core Widgets)
 find_package(Boost REQUIRED)
 
 # project executable
-add_executable(trial ${SOURCE_FILES} ${UI_FILES} ${RESOURCE_FILES})
-qt5_use_modules(trial Core Widgets)
-target_link_libraries(trial ${Boost_LIBRARIES})
-target_include_directories(trial PUBLIC ${Boost_INCLUDE_DIRS})
+add_executable(${CMAKE_PROJECT_NAME} ${SOURCE_FILES} ${UI_FILES} ${RESOURCE_FILES})
+qt5_use_modules(${CMAKE_PROJECT_NAME} Core Widgets)
+target_link_libraries(${CMAKE_PROJECT_NAME} ${Boost_LIBRARIES})
+target_include_directories(${CMAKE_PROJECT_NAME} PUBLIC ${Boost_INCLUDE_DIRS})
 
 # project installation
 install(
-    TARGETS trial
+    TARGETS ${CMAKE_PROJECT_NAME}
     RUNTIME DESTINATION bin
     LIBRARY DESTINATION lib
     ARCHIVE DESTINATION lib/static
