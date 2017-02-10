@@ -12,17 +12,16 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 list(APPEND CMAKE_PREFIX_PATH "/opt/qt/5.8.0/5.8/gcc_64")
 
 # source files
-set(SOURCE_FILES main.cpp main_window.cpp)
-set(UI_FILES main_window.ui)
-set(RESOURCE_FILES)
+set(SOURCE_FILES main.cpp)
+set(RESOURCE_FILES ../qml/qml.qrc)
 
 # find configuration packages
-find_package(Qt5 CONFIG REQUIRED COMPONENTS Core Widgets)
+find_package(Qt5 CONFIG REQUIRED COMPONENTS Qml Quick)
 find_package(Boost REQUIRED)
 
 # project executable
-add_executable(${CMAKE_PROJECT_NAME} ${SOURCE_FILES} ${UI_FILES} ${RESOURCE_FILES})
-qt5_use_modules(${CMAKE_PROJECT_NAME} Core Widgets)
+add_executable(${CMAKE_PROJECT_NAME} ${SOURCE_FILES} ${RESOURCE_FILES})
+qt5_use_modules(${CMAKE_PROJECT_NAME} Qml Quick)
 target_link_libraries(${CMAKE_PROJECT_NAME} ${Boost_LIBRARIES})
 target_include_directories(${CMAKE_PROJECT_NAME} PUBLIC ${Boost_INCLUDE_DIRS})
 

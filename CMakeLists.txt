@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.6)
 
 # project name
-project(qt-project)
+project(qml-project)
 
 # project c++ language configuration
 set(CMAKE_CXX_STANDARD 14)
