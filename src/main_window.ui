@@ -1,31 +1,118 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
-    <class>MainWindow</class>
-    <widget class="QMainWindow" name="MainWindow">
-        <property name="geometry">
-            <rect>
-                <x>0</x>
-                <y>0</y>
-                <width>800</width>
-                <height>600</height>
-            </rect>
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="widget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QLabel" name="equation_label">
+      <property name="text">
+       <string>ax&lt;sup&gt;2&lt;/sup&gt; + bx + c</string>
+      </property>
+      <property name="scaledContents">
+       <bool>false</bool>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <layout class="QGridLayout" name="equation_input_layout">
+      <item row="0" column="0">
+       <widget class="QLabel" name="a_label">
+        <property name="text">
+         <string>a:</string>
         </property>
-        <property name="windowTitle">
-            <string>MainWindow</string>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="a_input"/>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="b_label">
+        <property name="text">
+         <string>b:</string>
         </property>
-        <widget class="QWidget" name="centralwidget"/>
-        <widget class="QMenuBar" name="menubar">
-            <property name="geometry">
-                <rect>
-                    <x>0</x>
-                    <y>0</y>
-                    <width>800</width>
-                    <height>42</height>
-                </rect>
-            </property>
-        </widget>
-        <widget class="QStatusBar" name="statusbar"/>
-    </widget>
-    <resources/>
-    <connections/>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="b_input"/>
+      </item>
+      <item row="2" column="1">
+       <widget class="QLineEdit" name="c_input"/>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="c_label">
+        <property name="text">
+         <string>c:</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <spacer name="vertical_spacer">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="roots_layout">
+      <item>
+       <widget class="QLabel" name="root1_label">
+        <property name="text">
+         <string>Root 1:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="root1_output"/>
+      </item>
+      <item>
+       <widget class="QLabel" name="root2_label">
+        <property name="text">
+         <string>Root 2:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="root2_output"/>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>42</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
 </ui>
