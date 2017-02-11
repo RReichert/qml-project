@@ -7,4 +7,75 @@ ApplicationWindow {
 	height: 480
 	visible: true
 	title: qsTr("Hello")
+
+	ColumnLayout {
+		anchors.fill: parent
+
+		Label {
+			id: equation_label
+			text: "ax<sup>2</sup> + bx + c = 0"
+			textFormat: Label.RichText
+		}
+
+		GridLayout {
+			id: coefficient_layout
+			columns: 2
+			Layout.fillWidth: true
+
+			Label {
+			 id: a_label
+			 text: "a:"
+			}
+
+			TextField {
+			 id: a_field
+			}
+
+			Label {
+			 id: b_label
+			 text: "b:"
+			}
+
+			TextField {
+			 id: b_field
+			}
+
+			Label {
+				id: c_label
+				text: "c:"
+			}
+
+			TextField {
+				id: c_field
+			}
+		}
+
+		RowLayout {
+			id: root_layout
+			Layout.fillWidth: true
+
+			Label {
+				id: left_root_label
+				text: "Roots ("
+			}
+
+			TextField {
+				id: root1_field
+			}
+
+			Label {
+				id: center_root_label
+				text: ","
+			}
+
+			TextField {
+				id: root2_field
+			}
+
+			Label {
+				id: right_root_label
+				text: ")"
+			}
+		}
+	}
 }
