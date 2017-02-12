@@ -1,33 +1,42 @@
-# version details
+# project name
+project(qml-project)
+
+# project version details
 set(PROJECT_VERSION_MAJOR "1")
 set(PROJECT_VERSION_MINOR "0")
 set(PROJECT_VERSION_PATCH "0")
 set(PROJECT_VERSION "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}")
 
-# setup qt
+# qt framework setup
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 list(APPEND CMAKE_PREFIX_PATH "/opt/qt/5.8.0/5.8/gcc_64")
 
-# source files
+# project files
 set(SOURCE_FILES main.cpp)
-set(RESOURCE_FILES ../qml/qml.qrc)
+set(RESOURCE_FILES qml.qrc)
 
-# find configuration packages
-find_package(Qt5 CONFIG REQUIRED COMPONENTS Qml Quick)
+# packages configuration
 find_package(Boost REQUIRED)
+find_package(Qt5 CONFIG REQUIRED COMPONENTS LinguistTools Qml Quick)
 
 # project executable
-add_executable(${CMAKE_PROJECT_NAME} ${SOURCE_FILES} ${RESOURCE_FILES})
-qt5_use_modules(${CMAKE_PROJECT_NAME} Qml Quick)
-target_link_libraries(${CMAKE_PROJECT_NAME} ${Boost_LIBRARIES})
-target_include_directories(${CMAKE_PROJECT_NAME} PUBLIC ${Boost_INCLUDE_DIRS})
+add_executable(${PROJECT_NAME} ${SOURCE_FILES} ${RESOURCE_FILES})
+
+target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES})
+target_include_directories(${PROJECT_NAME} PUBLIC ${Boost_INCLUDE_DIRS})
+
+#qt5_add_translation(QM_FILES ${QM_FILES})
+qt5_use_modules(${PROJECT_NAME} Qml Quick)
+
+# project translations
+#qt5_create_translation()
 
 # project installation
 install(
-    TARGETS ${CMAKE_PROJECT_NAME}
+    TARGETS ${PROJECT_NAME}
     RUNTIME DESTINATION bin
     LIBRARY DESTINATION lib
     ARCHIVE DESTINATION lib/static

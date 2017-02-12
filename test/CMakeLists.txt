@@ -1,20 +1,23 @@
-# unit test files
-set(TEST_FILES )
+# project name
+project(unit-tests)
 
-# find google test
+# package configurations
 find_package(GTest)
 
-# build run_tests if gtest is available
+# enable unit test target if gtest is available
 if(GTest_FOUND)
 
-    # unit test compilation
-    add_executable(run_tests ${TEST_FILE} basic_test.cpp)
-    target_link_libraries(run_tests ${GTEST_BOTH_LIBRARIES})
-    target_include_directories(run_tests PUBLIC ${GTEST_INCLUDE_DIRS})
+    # unit test files
+    set(TEST_FILES basic_test.cpp)
 
-    # unit test installation
+    # unit tests compile
+    add_executable(${PROJECT_NAME} ${TEST_FILES})
+    target_link_libraries(${PROJECT_NAME} ${GTEST_BOTH_LIBRARIES})
+    target_include_directories(${PROJECT_NAME} PUBLIC ${GTEST_INCLUDE_DIRS})
+
+    # unit tests installation
     install(
-        TARGETS run_tests
+        TARGETS ${PROJECT_NAME}
         RUNTIME DESTINATION bin
         LIBRARY DESTINATION lib
         ARCHIVE DESTINATION lib/static
