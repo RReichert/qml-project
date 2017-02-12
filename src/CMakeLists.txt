@@ -18,6 +18,11 @@ list(APPEND CMAKE_PREFIX_PATH "/opt/qt/5.8.0/5.8/gcc_64")
 set(SOURCE_FILES main.cpp)
 set(RESOURCE_FILES qml.qrc)
 
+set(TRANSLATION_FILES
+    ${CMAKE_SOURCE_DIR}/${TRANSLATION_OUTPUT_PATH}/${PROJECT_NAME}_de.ts
+    ${CMAKE_SOURCE_DIR}/${TRANSLATION_OUTPUT_PATH}/${PROJECT_NAME}_pt.ts
+)
+
 # packages configuration
 find_package(Boost REQUIRED)
 find_package(Qt5 CONFIG REQUIRED COMPONENTS LinguistTools Qml Quick)
@@ -28,11 +33,11 @@ add_executable(${PROJECT_NAME} ${SOURCE_FILES} ${RESOURCE_FILES})
 target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES})
 target_include_directories(${PROJECT_NAME} PUBLIC ${Boost_INCLUDE_DIRS})
 
-#qt5_add_translation(QM_FILES ${QM_FILES})
+# qt5_add_translation()
 qt5_use_modules(${PROJECT_NAME} Qml Quick)
 
 # project translations
-#qt5_create_translation()
+qt5_create_translation(QM_FILES ${SOURCE_FILES} ${TRANSLATION_FILES})
 
 # project installation
 install(

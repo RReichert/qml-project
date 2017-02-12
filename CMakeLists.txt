@@ -7,6 +7,7 @@ set(CMAKE_CXX_STANDARD 14)
 # installation output paths
 set(EXECUTABLE_OUTPUT_PATH bin)
 set(LIBRARY_OUTPUT_PATH lib)
+set(TRANSLATION_OUTPUT_PATH i18n)
 
 # sub-projects
 add_subdirectory(doc)
