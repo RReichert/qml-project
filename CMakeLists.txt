@@ -25,10 +25,14 @@ find_package(Boost REQUIRED)
 find_package(Qt5 CONFIG REQUIRED COMPONENTS LinguistTools Qml Quick)
 
 # project files
-set(SRC_FILES
-	src/main.cpp
+set(MAIN_FILE src/main.cpp)
+set(HEADER_FILES
+	src/quadratic.h
 )
-set(UI_FILES
+set(SOURCE_FILES
+	src/quadratic.cpp
+)
+set(QML_FILES
 	ui/main.qml
 )
 set(TEST_FILES
@@ -38,16 +42,88 @@ set(TS_FILES
 	i18n/lang_pt.ts
 	i18n/lang_en.ts
 )
-set(RCC_FILES
-	ui/qml.qrc
-	i18n/ts.qrc
-)
 
-# generate translation file custom commands
-qt5_create_translation(QM_FILES ${TS_FILES} ${UI_FILES} ${SRC_FILES})
+# custom commands for translation files (*.ts/*.qm)
+qt5_create_translation(QM_FILES ${TS_FILES} ${HEADER_FILES} ${SOURCE_FILES} ${QML_FILES})
+
+#
+# QT5_CREATE_QRC(_qrc_file ...)
+#
+#   method will create a qrc file and dynamically populate it with files entered
+#   as variable parameters to the function. each file will have an alias which will
+#   equate to the file's name. user's are able to add a prefix as well as a language
+#   for the resource.
+#
+#   LANG=""
+#     language for which all the resources will belong to
+#
+#   PREFIX="/"
+#     prefix path for which all files will belong to
+#
+#   _qrc_file  path to the qrc file you'de like to create
+#      ...     list of files to add to qrc file
+##
+function(QT5_CREATE_QRC _qrc_file)
+
+	# parse function arguments
+	set(_options)
+	set(_one_value_args LANG PREFIX)
+	set(_multi_value_args)
+
+	cmake_parse_arguments(_INPUT "${_options}" "${_one_value_args}" "${_multi_value_args}" ${ARGN})
+	set(_files ${_INPUT_UNPARSED_ARGUMENTS})
+
+	# qrc qresource xml attributes
+	set(_lang_attr)
+	if(_INPUT_LANG)
+		set(_lang_attr " lang=\"${_INPUT_LANG}\"")
+	endif()
+
+	set(_prefix_attr)
+	if(_INPUT_PREFIX)
+		set(_prefix_attr " prefix=\"${_INPUT_PREFIX}\"")
+	endif()
+
+	# qrc file elements
+	set(_file_elements)
+	foreach(_file ${_files})
+		get_filename_component(_filename ${_file} NAME)
+		list(APPEND _file_elements "<file alias=\"${_filename}\">${_file}</file>")
+	endforeach()
+
+	# write qrc file
+	set(_qrc_file_in "${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/${_qrc_file}.in")
+	string(REPLACE ";" "\n\t\t" _file_elements "${_file_elements}")
+
+	file(WRITE "${_qrc_file_in}"
+"<RCC>
+	<qresource@_lang_attr@@_prefix_attr@>
+		@_file_elements@
+	</qresource>
+</RCC>"
+	)
+
+	configure_file("${_qrc_file_in}" "${_qrc_file}")
+
+endfunction()
+
+# custom command for i18n resource file
+qt5_create_qrc(i18n.qrc ${QM_FILES} PREFIX "/i18n")
+
+#add_custom_command(OUTPUT i18n.qrc
+#	COMMAND
+#	DEPENDS ${QM_FILES}
+#)
+
+# custom command for ui resource file
+qt5_create_qrc(ui.qrc ${QML_FILES} PREFIX "/ui")
+#add_custom_command(OUTPUT ui.qrc
+#	COMMAND
+#	DEPENDS ${QML_FILES}
+#)
 
 # executable
-add_executable(application ${SRC_FILES} ${RCC_FILES} ${QM_FILES})
+add_executable(application ${MAIN_FILE} ${SOURCE_FILES})  # TODO: include ${RCC_FILES}
 
 target_link_libraries(application ${Boost_LIBRARIES})
 target_include_directories(application PUBLIC ${Boost_INCLUDE_DIRS})
@@ -89,7 +165,7 @@ endif()
 if(GTest_FOUND)
 
 	# unit tests compile
-	add_executable(unit-tests ${TEST_FILES})
+	add_executable(unit-tests ${SOURCE_FILES} ${TEST_FILES})
 	target_link_libraries(unit-tests ${GTEST_BOTH_LIBRARIES})
 	target_include_directories(unit-tests PUBLIC ${GTEST_INCLUDE_DIRS})
 
