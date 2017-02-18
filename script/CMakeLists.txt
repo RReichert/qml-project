@@ -1,2 +1,1 @@
-# compile scripts
-add_subdirectory(qt5-create-qrc)
+add_subdirectory(qrc-editor)

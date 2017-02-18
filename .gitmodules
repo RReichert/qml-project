@@ -1,0 +1,3 @@
+[submodule "script/qrc-editor"]
+	path = script/qrc-editor
+	url = github:RReichert/qrc-editor.git
