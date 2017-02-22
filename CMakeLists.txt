@@ -51,7 +51,7 @@ if(NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/i18n)
 	file(MAKE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/i18n)
 endif()
 
-# generate custom commands for qt translation files (*.ts/*.qm)
+# custom commands for qt translation files (*.ts/*.qm)
 qt5_create_translation(QM_FILES ${TS_FILES} ${SOURCE_FILES} ${QML_FILES})
 
 # custom command for i18n/ui resource files
@@ -82,10 +82,10 @@ add_custom_target(qrc
 add_executable(application ${MAIN_FILE} ${SOURCE_FILES} i18n.qrc ui.qrc)
 add_dependencies(application qrc)
 
+target_link_libraries(application Qt5::Qml Qt5::Quick)
+
 target_link_libraries(application ${Boost_LIBRARIES})
 target_include_directories(application PUBLIC ${Boost_INCLUDE_DIRS})
-
-qt5_use_modules(application Qml Quick)
 
 # installation
 install(
